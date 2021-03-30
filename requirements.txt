@@ -1,6 +1,4 @@
 black
 flake8
-httpx
 pre-commit
-python-dotenv
 rope
