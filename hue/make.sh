@@ -3,7 +3,7 @@ set -euo pipefail
 
 USER=$(whoami)
 CURRDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-set -x
+# set -x
 
 function install() {
   { echo "Installing Hue Automation Scripts"; } 2> /dev/null
@@ -46,4 +46,14 @@ function run() {
   cd "$(dirname $CURRDIR)" && ./.venv/bin/python3 -m hue.signal_on_video_call
 }
 
-"$@"
+function help() {
+  declare -F | awk '{print $NF}' | sort | egrep -v "^_"
+}
+
+if [ $# -eq 0 ]; then
+  echo "Please provide one of the following arguments:"
+  help
+  exit 1
+else
+  "$@"
+fi

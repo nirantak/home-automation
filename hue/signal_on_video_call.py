@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 import asyncio
+import os
 
 from . import hue_light as hue
 
 
 async def trigger_hue_light(data: str, light: int = 1) -> bool:
     resp = None
+    light = os.environ.get("HUE_ON_AIR_LIGHT", light)
     if "Post event kCameraStreamStart" in data:
         resp = await hue.turn_on_light(light)
     elif "Post event kCameraStreamStop" in data:
