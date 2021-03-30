@@ -4,8 +4,11 @@
 <dict>
   <key>Label</key>
   <string>com.nirantak.signal_video</string>
-  <key>Program</key>
-  <string>/Users/nirantak/code/nirantak/home-automation/hue/run.sh</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>FULL_PATH_HERE/make.sh</string>
+    <string>run</string>
+  </array>
   <key>KeepAlive</key>
   <true/>
   <key>RunAtLoad</key>
