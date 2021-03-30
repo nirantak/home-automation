@@ -6,7 +6,7 @@ CURRDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 # set -x
 
 function install() {
-  { echo "Installing Hue Automation Scripts"; } 2> /dev/null
+  echo "Installing Hue Automation Scripts"
   sudo mkdir -p /var/log/com.nirantak
   sudo chown -R $USER:staff /var/log/com.nirantak
   touch /var/log/com.nirantak/signal_video.std{out,err}.log
@@ -19,30 +19,37 @@ function install() {
 
 function start() {
   stop
-  { echo "Starting Hue Automation"; } 2> /dev/null
+  echo "Starting Hue Automation"
   cp -fv "$CURRDIR/com.nirantak.signal_video.plist" ~/Library/LaunchAgents/
   /usr/bin/sed -i "" "s+FULL_PATH_HERE+${CURRDIR}+g" ~/Library/LaunchAgents/com.nirantak.signal_video.plist
   launchctl load -w ~/Library/LaunchAgents/com.nirantak.signal_video.plist
 }
 
+function clear_logs() {
+  echo "Clearing Old Logs"
+  echo '' > /var/log/com.nirantak/signal_video.stdout.log
+  echo '' > /var/log/com.nirantak/signal_video.stderr.log
+}
+
 function logs() {
-  { echo "Getting Logs"; } 2> /dev/null
+  echo "Getting Logs"
   tail -f /var/log/com.nirantak/signal_video.*.log
 }
 
 function stop() {
-  { echo "Stopping Hue Automation"; } 2> /dev/null
+  echo "Stopping Hue Automation"
   launchctl unload -w ~/Library/LaunchAgents/com.nirantak.signal_video.plist
 }
 
 function uninstall() {
   stop
   rm -f ~/Library/LaunchAgents/com.nirantak.signal_video.plist
-  { echo "Uninstalling Hue Automation Scripts"; } 2> /dev/null
+  rm -f /var/log/com.nirantak/signal_video.*.log
+  echo "Uninstalling Hue Automation Scripts"
 }
 
 function run() {
-  { echo "Running Hue Automation at $(date)"; } 2> /dev/null
+  echo "Running Hue Automation at $(date)"
   cd "$(dirname $CURRDIR)" && ./.venv/bin/python3 -m hue.signal_on_video_call
 }
 
