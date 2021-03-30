@@ -1,2 +1,3 @@
-# home-automation
+# Home Automation
+
 Home automation tools and scripts
