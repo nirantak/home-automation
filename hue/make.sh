@@ -14,6 +14,7 @@ function install() {
   source $CURRDIR/.venv/bin/activate > /dev/null 2>&1
   $CURRDIR/.venv/bin/pip3 install -U pip wheel setuptools
   cd $CURRDIR && ./.venv/bin/pip3 install -U -r requirements.txt
+  clear_logs
   start
 }
 
@@ -50,7 +51,7 @@ function uninstall() {
 
 function run() {
   echo "Running Hue Automation at $(date)"
-  cd "$(dirname $CURRDIR)" && ./.venv/bin/python3 -m hue.signal_on_video_call
+  cd $CURRDIR && ./.venv/bin/python3 signal_on_video_call.py
 }
 
 function help() {
