@@ -2,7 +2,7 @@
 import asyncio
 import os
 
-import hue_light as hue
+from . import hue_light as hue
 
 
 async def trigger_hue_light(data: str, light: int = 1) -> bool:
