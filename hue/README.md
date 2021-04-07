@@ -25,4 +25,4 @@ cp -nv .env.sample .env  # copy and update the env variables
 ## References
 
 - https://developers.meethue.com/develop/hue-api
-- https://github.com/benknight/hue-python-rgb-converter
+- http://www.developers.meethue.com/documentation/color-conversions-rgb-xy
