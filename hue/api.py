@@ -13,22 +13,18 @@ ORIGINAL_STATE: dict[Any] = {}
 
 
 async def switch_on(light: int) -> bool:
-    async with httpx.AsyncClient() as client:
-        data = {"on": True}
-        resp = await client.put(f"{HUE_API}/lights/{light}/state", json=data)
-        print(f"Light {light} ON resp: {resp.text}")
-        return resp.status_code == httpx.codes.OK
+    status, resp = await set_state(light, {"on": True})
+    print(f"Light {light} ON resp: {resp}")
+    return status
 
 
 async def switch_off(light: int) -> bool:
-    async with httpx.AsyncClient() as client:
-        data = {"on": False}
-        resp = await client.put(f"{HUE_API}/lights/{light}/state", json=data)
-        print(f"Light {light} OFF resp: {resp.text}")
-        return resp.status_code == httpx.codes.OK
+    status, resp = await set_state(light, {"on": False})
+    print(f"Light {light} OFF resp: {resp}")
+    return status
 
 
-async def get_state(light: int) -> bool:
+async def get_state(light: int) -> dict[Any]:
     async with httpx.AsyncClient() as client:
         resp = await client.get(f"{HUE_API}/lights/{light}")
         resp = resp.json()["state"]
@@ -36,7 +32,7 @@ async def get_state(light: int) -> bool:
         return resp
 
 
-async def set_state(light: int, state: dict[Any]) -> bool:
+async def set_state(light: int, state: dict[Any]) -> tuple[bool, dict[Any]]:
     async with httpx.AsyncClient() as client:
         data = {"on": bool(state.get("on"))}
         for i in ["bri", "hue", "sat", "xy", "ct"]:
@@ -49,6 +45,7 @@ async def set_state(light: int, state: dict[Any]) -> bool:
 
 
 async def save_state(light: int) -> dict[Any]:
+    global ORIGINAL_STATE
     ORIGINAL_STATE = await get_state(light)
     return ORIGINAL_STATE
 

@@ -2,7 +2,7 @@
 import asyncio
 import os
 
-from . import hue_light as hue
+from . import api
 
 ALERT_STATE = {
     "on": True,
@@ -14,15 +14,15 @@ ALERT_STATE = {
 async def trigger_hue_light(data: str, light: int) -> bool:
     resp = None
     if "Post event kCameraStreamStart" in data:
-        resp = await hue.set_state(light, ALERT_STATE)
+        resp = await api.set_state(light, ALERT_STATE)
     elif "Post event kCameraStreamStop" in data:
-        resp = await hue.restore_state(light)
+        resp = await api.restore_state(light)
     return resp
 
 
 async def main():
     light = os.environ.get("HUE_ON_AIR_LIGHT", 1)
-    await hue.save_state(light)
+    await api.save_state(light)
 
     process = await asyncio.create_subprocess_exec(
         "log",

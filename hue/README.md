@@ -26,3 +26,4 @@ cp -nv .env.sample .env  # copy and update the env variables
 
 - https://developers.meethue.com/develop/hue-api
 - http://www.developers.meethue.com/documentation/color-conversions-rgb-xy
+- https://developers.meethue.com/develop/hue-api/supported-devices/
