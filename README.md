@@ -11,7 +11,10 @@ Python 3.9+ required
 ```bash
 git clone git@github.com:nirantak/home-automation.git
 cd home-automation
-pip3 install -U pip wheel setuptools
-pip3 install -U -r requirements.txt
-pre-commit install --install-hooks --overwrite  # to set up pre-commit hooks, required for contributing code
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -U pip wheel setuptools
+pip install -U -r requirements.txt
+# To set up pre-commit hooks, required for contributing code, run:
+pre-commit install --install-hooks --overwrite
 ```
