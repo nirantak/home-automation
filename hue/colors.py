@@ -58,7 +58,6 @@ def get_light_gamut(modelId):
         return GamutC
     else:
         raise ValueError
-    return None
 
 
 class ColorHelper:
@@ -187,7 +186,7 @@ class ColorHelper:
         cx = X / (X + Y + Z)
         cy = Y / (X + Y + Z)
 
-        # Check if the given XY value is within the colourreach of our lamps.
+        # Check if the given XY value is within the colorreach of our lamps.
         xy_point = XYPoint(cx, cy)
         in_reach = self.check_point_in_lamps_reach(xy_point)
 

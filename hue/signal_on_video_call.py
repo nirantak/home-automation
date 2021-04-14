@@ -2,18 +2,19 @@
 import asyncio
 import os
 
-from . import api
+from hue import api, colors
 
 ALERT_STATE = {
     "on": True,
     "bri": 200,
-    "xy": [0.704, 0.296],  # red
+    "xy": colors.Converter(colors.GamutC).rgb_to_xy(255, 0, 0),
 }
 
 
 async def trigger_hue_light(data: str, light: int) -> bool:
     resp = None
     if "Post event kCameraStreamStart" in data:
+        await api.save_state(light)
         resp = await api.set_state(light, ALERT_STATE)
     elif "Post event kCameraStreamStop" in data:
         resp = await api.restore_state(light)
@@ -22,7 +23,6 @@ async def trigger_hue_light(data: str, light: int) -> bool:
 
 async def main():
     light = os.environ.get("HUE_ON_AIR_LIGHT", 1)
-    await api.save_state(light)
 
     process = await asyncio.create_subprocess_exec(
         "log",

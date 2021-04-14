@@ -24,12 +24,17 @@ async def switch_off(light: int) -> bool:
     return status
 
 
-async def get_state(light: int) -> dict[Any]:
+async def get_light(light: int) -> dict[Any]:
     async with httpx.AsyncClient() as client:
         resp = await client.get(f"{HUE_API}/lights/{light}")
-        resp = resp.json()["state"]
+        resp = resp.json()
         print(f"Light {light} resp: {resp}")
         return resp
+
+
+async def get_state(light: int) -> dict[Any]:
+    resp = await get_light(light)
+    return resp["state"]
 
 
 async def set_state(light: int, state: dict[Any]) -> tuple[bool, dict[Any]]:
