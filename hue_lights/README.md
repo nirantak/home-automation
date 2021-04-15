@@ -4,7 +4,7 @@
 
 ### On Air signal for video calls
 
-- This script [`hue/signal_on_video_call.py`](https://github.com/nirantak/home-automation/blob/main/hue/signal_on_video_call.py) can detect when the macOS camera is turned on/off, to trigger Hue lights.
+- This script [`hue_lights/signal_on_video_call.py`](https://github.com/nirantak/home-automation/blob/main/hue_lights/signal_on_video_call.py) can detect when the macOS camera is turned on/off, to trigger Hue lights.
 - To use, clone this repo and create a `.env` file based on the sample, with the local IP address and username for the Hue bridge API.
   - Go to [discovery.meethue.com](https://discovery.meethue.com/) to get the Hue bridge IP address.
   - Follow [this link](https://developers.meethue.com/develop/get-started-2/#so-lets-get-started) to create a Hue API user if not already known, and set the env variable `HUE_BRIDGE_USER` ([API reference](https://developers.meethue.com/develop/hue-api/7-configuration-api/#create-user)).
@@ -13,7 +13,7 @@
 
 ```bash
 git clone git@github.com:nirantak/home-automation.git
-cd ./home-automation/hue
+cd ./home-automation/hue_lights
 cp -nv .env.sample .env  # copy and update the env variables
 ./make.sh install        # to setup the environment for the script
 ./make.sh start          # to start if stopped, or to reload the plist
@@ -24,6 +24,7 @@ cp -nv .env.sample .env  # copy and update the env variables
 
 ## References
 
+- https://github.com/nirantak/hue-api
 - https://developers.meethue.com/develop/hue-api
 - http://www.developers.meethue.com/documentation/color-conversions-rgb-xy
 - https://developers.meethue.com/develop/hue-api/supported-devices/

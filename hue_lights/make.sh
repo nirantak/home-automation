@@ -48,7 +48,7 @@ function uninstall() {
 
 function run() {
   echo "Running Hue Automation at $(date)"
-  cd $BASE_DIR && ./.venv/bin/python3 -m hue.signal_on_video_call
+  cd $BASE_DIR && ./.venv/bin/python3 hue_lights/signal_on_video_call.py
 }
 
 function help() {

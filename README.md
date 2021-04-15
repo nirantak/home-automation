@@ -2,7 +2,7 @@
 
 ## Home automation tools and scripts
 
-- [Hue Lights](https://github.com/nirantak/home-automation/tree/main/hue)
+- [Hue Lights](https://github.com/nirantak/home-automation/tree/main/hue_lights)
 
 ## Setting Up
 

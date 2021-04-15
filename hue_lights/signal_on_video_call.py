@@ -2,12 +2,12 @@
 import asyncio
 import os
 
-from hue import api, colors
+from hue import api
 
 ALERT_STATE = {
     "on": True,
     "bri": 200,
-    "xy": colors.Converter(colors.GamutC).rgb_to_xy(255, 0, 0),
+    "xy": [0.704, 0.296],  # red
 }
 
 
