@@ -1,7 +1,5 @@
 black
 flake8
-hue-api
-ipython
+hue-api==0.3.1
 pre-commit
 python-dotenv
-rope

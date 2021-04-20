@@ -12,7 +12,6 @@
 - Once `./make.sh install` is run, a plist file is copied to the current user's LaunchAgents, so the script will restart on error and when the machine is rebooted.
 
 ```bash
-git clone git@github.com:nirantak/home-automation.git
 cd ./home-automation/hue_lights
 cp -nv .env.sample .env  # copy and update the env variables
 ./make.sh install        # to setup the environment for the script
@@ -25,6 +24,3 @@ cp -nv .env.sample .env  # copy and update the env variables
 ## References
 
 - https://github.com/nirantak/hue-api
-- https://developers.meethue.com/develop/hue-api
-- http://www.developers.meethue.com/documentation/color-conversions-rgb-xy
-- https://developers.meethue.com/develop/hue-api/supported-devices/
