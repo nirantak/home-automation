@@ -6,7 +6,7 @@
 
 ## Setting Up
 
-Python 3.7+ required
+Python 3.8+ required
 
 ```bash
 git clone git@github.com:nirantak/home-automation.git
