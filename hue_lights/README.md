@@ -14,14 +14,13 @@
 
 ```bash
 cd home-automation        # project root dir
-cp -nv .env.sample .env   # copy and update the env variables
 source .venv/bin/activate # activate virtual environment
 cd hue_lights
-./make.sh install        # to setup the environment for the script
-./make.sh start          # to start if stopped, or to reload the plist
-./make.sh logs           # to view logs generated
-./make.sh stop           # to turn off the automation
-./make.sh uninstall      # to remove the plist
+./make.sh install         # to setup the environment for the script
+./make.sh start           # to start if stopped, or to reload the plist
+./make.sh logs            # to view logs generated
+./make.sh stop            # to turn off the automation
+./make.sh uninstall       # to remove the plist
 ```
 
 ## References

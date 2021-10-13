@@ -11,6 +11,7 @@ Python 3.8+ required
 ```bash
 git clone git@github.com:nirantak/home-automation.git
 cd home-automation
+cp -nv .env.sample .env  # copy and update the env variables
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -U pip wheel setuptools
