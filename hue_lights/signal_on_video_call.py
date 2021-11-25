@@ -3,6 +3,8 @@ from __future__ import annotations
 
 import asyncio
 import os
+import platform
+import sys
 
 from dotenv import load_dotenv
 from hue import Color, Light
@@ -18,14 +20,34 @@ ALERT_STATE = {
 LIGHT_ID = os.environ.get("HUE_ON_AIR_LIGHT", 1)
 HUE_BRIDGE_IP = os.environ["HUE_BRIDGE_IP"]
 HUE_BRIDGE_USER = os.environ["HUE_BRIDGE_USER"]
+EVENT = {
+    "default": {
+        "filter": '(category == "device") && (eventMessage contains "Camera")',
+        "start": "Post event kCameraStreamStart",
+        "stop": "Post event kCameraStreamStop",
+    },
+    "monterey": {
+        "filter": '(subsystem == "com.apple.UVCExtension") && (eventMessage contains "Post PowerLog")',
+        "start": '"VDCAssistant_Power_State" = On',
+        "stop": '"VDCAssistant_Power_State" = Off',
+    },
+}
+
+if platform.system() != "Darwin":
+    sys.exit("This script only works on macOS")
+elif int(platform.mac_ver()[0].split(".")[0]) >= 12:
+    # Starting from macOS Monterey, the log stream uses a different camera event
+    EVENT = EVENT["monterey"]
+else:
+    EVENT = EVENT["default"]
 
 
 async def trigger_hue_light(light: Light, data: str):
     resp = None
-    if "Post event kCameraStreamStart" in data:
+    if EVENT["start"] in data:
         await light.save_state()
         resp = await light.set_state(ALERT_STATE)
-    elif "Post event kCameraStreamStop" in data:
+    elif EVENT["stop"] in data:
         resp = await light.restore_state()
     return resp
 
@@ -39,7 +61,7 @@ async def main():
         "--style",
         "compact",
         "--predicate",
-        '(category == "device") && (eventMessage contains "Camera")',
+        EVENT["filter"],
         stdout=asyncio.subprocess.PIPE,
     )
     light = Light(LIGHT_ID, ip=HUE_BRIDGE_IP, user=HUE_BRIDGE_USER)
