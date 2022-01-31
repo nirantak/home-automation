@@ -14,7 +14,7 @@ load_dotenv()
 
 ALERT_STATE = {
     "on": True,
-    "bri": 200,
+    "bri": 150,
     "xy": Color().rgb_to_xy(255, 0, 0),
 }
 LIGHT_ID = os.environ.get("HUE_ON_AIR_LIGHT", 1)
