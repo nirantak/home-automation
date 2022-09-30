@@ -31,10 +31,19 @@ EVENT = {
         "start": '"VDCAssistant_Power_State" = On',
         "stop": '"VDCAssistant_Power_State" = Off',
     },
+    "arm64": {
+        "filter": '(process == "appleh13camerad") && (eventMessage contains "ISP_Power")',
+        "start": "PowerOnCamera",
+        "stop": "PowerOffCamera",
+    },
 }
+# Find event details by searching `log stream --type log --style json`
 
 if platform.system() != "Darwin":
     sys.exit("This script only works on macOS")
+elif platform.mac_ver()[-1] == "arm64":
+    # Apple Silicon macs have a different camera event \/usr\/sbin\/appleh13camerad
+    EVENT = EVENT["arm64"]
 elif int(platform.mac_ver()[0].split(".")[0]) >= 12:
     # Starting from macOS Monterey, the log stream uses a different camera event
     EVENT = EVENT["monterey"]

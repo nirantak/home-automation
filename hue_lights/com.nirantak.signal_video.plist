@@ -6,8 +6,8 @@
   <string>com.nirantak.signal_video</string>
   <key>ProgramArguments</key>
   <array>
-    <string>FULL_PATH_HERE/make.sh</string>
-    <string>run</string>
+    <string>PY_EXECUTABLE_PATH_HERE</string>
+    <string>CODE_PATH_HERE/signal_on_video_call.py</string>
   </array>
   <key>KeepAlive</key>
   <true/>

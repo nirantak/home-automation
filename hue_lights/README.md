@@ -25,4 +25,4 @@ cd hue_lights
 
 ## References
 
-- https://github.com/nirantak/hue-api
+- [github.com/nirantak/hue-api](https://github.com/nirantak/hue-api)

@@ -4,6 +4,7 @@ set -euo pipefail
 USER=$(whoami)
 HUE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 BASE_DIR="$( dirname "${HUE_DIR}" )"
+PY_EXECUTABLE_PATH="$( which python3 )"
 # set -x
 
 function install() {
@@ -19,7 +20,8 @@ function start() {
   stop
   echo "Starting Hue Automation"
   cp -fv "$HUE_DIR/com.nirantak.signal_video.plist" ~/Library/LaunchAgents/
-  /usr/bin/sed -i "" "s+FULL_PATH_HERE+${HUE_DIR}+g" ~/Library/LaunchAgents/com.nirantak.signal_video.plist
+  /usr/bin/sed -i "" "s+PY_EXECUTABLE_PATH_HERE+${PY_EXECUTABLE_PATH}+g" ~/Library/LaunchAgents/com.nirantak.signal_video.plist
+  /usr/bin/sed -i "" "s+CODE_PATH_HERE+${HUE_DIR}+g" ~/Library/LaunchAgents/com.nirantak.signal_video.plist
   launchctl load -w ~/Library/LaunchAgents/com.nirantak.signal_video.plist
 }
 
@@ -44,11 +46,6 @@ function uninstall() {
   rm -f ~/Library/LaunchAgents/com.nirantak.signal_video.plist
   rm -f /var/log/com.nirantak/signal_video.*.log
   echo "Uninstalling Hue Automation Scripts"
-}
-
-function run() {
-  echo "Running Hue Automation at $(date)"
-  cd $BASE_DIR && ./.venv/bin/python3 hue_lights/signal_on_video_call.py
 }
 
 function help() {
